@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fastfood-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fastfood
+      MYSQL_TEST_DATABASE: fastfood_test
+      MYSQL_USER: user-admin
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      - local-network
+    healthcheck:
+      test: /usr/bin/mysql -uroot -prootpassword -e "SHOW DATABASES"
+
+  adminer:
+    image: adminer
+    container_name: fastfood-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - local-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+        - MYSQL_URL=jdbc:mysql://mysql:3306/fastfood
+    ports:
+      - "8081:8081"
+    networks:
+      - local-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+networks:
+  local-network:
+    driver: bridge

@@ -1,0 +1,59 @@
+name: Fastfood CI
+
+on: [workflow_dispatch]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v2
+      with:
+        java-version: '21'
+
+    - name: Set up Maven
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'maven'
+        java-version: '21'
+
+    - name: Build with Maven
+      run: mvn clean install
+
+    - name: Run tests
+      run: mvn test
+
+    - name: Extract artifactId from pom.xml
+      id: extract-artifact-id
+      run: echo "ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
+
+    - name: Set organization variable
+      run: echo "SONAR_ORGANIZATION=your-organization-name" >> $GITHUB_ENV
+
+    - name: Set SonarQube host URL
+      run: echo "SONAR_HOST_URL=https://sonarcloud.io" >> $GITHUB_ENV
+
+    - name: Set up SonarQube Scanner
+      uses: sonarsource/sonarcloud-github-action@v1
+      with:
+        sonarToken: ${{ secrets.SONAR_TOKEN }}
+        args: >
+          -Dsonar.projectKey=${{ env.ARTIFACT_ID }}
+          -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
+          -Dsonar.host.url=${{ env.SONAR_HOST_URL }}
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      run: docker build -t your-dockerhub-username/your-image-name:latest .
+
+    - name: Push Docker image
+      run: docker push your-dockerhub-username/your-image-name:latest
