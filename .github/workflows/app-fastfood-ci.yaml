@@ -1,4 +1,4 @@
-name: Fastfood CI
+name: Fastfood CI.
 
 on: [workflow_dispatch]
 
