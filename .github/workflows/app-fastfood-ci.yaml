@@ -31,29 +31,33 @@ jobs:
       id: extract-artifact-id
       run: echo "ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
 
-    - name: Set organization variable
-      run: echo "SONAR_ORGANIZATION=your-organization-name" >> $GITHUB_ENV
-
-    - name: Set SonarQube host URL
-      run: echo "SONAR_HOST_URL=https://sonarcloud.io" >> $GITHUB_ENV
-
-    - name: Set up SonarQube Scanner
-      uses: sonarsource/sonarcloud-github-action@v1
-      with:
-        sonarToken: ${{ secrets.SONAR_TOKEN }}
-        args: >
-          -Dsonar.projectKey=${{ env.ARTIFACT_ID }}
-          -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
-          -Dsonar.host.url=${{ env.SONAR_HOST_URL }}
+    - name: Run SonarQube analysis
+      run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+       -Dsonar.projectKey=${{ vars.ARTIFACT_ID }} 
+       -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} 
+       -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} 
+       -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+    # - name: Set up SonarQube Scanner
+    #   uses: sonarsource/sonarcloud-github-action@v1
+    #   with:
+    #     sonarToken: ${{ secrets.SONAR_TOKEN }}
+    #     args: >
+    #       -Dsonar.projectKey=${{ env.ARTIFACT_ID }}
+    #       -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
+    #       -Dsonar.host.url=${{ env.SONAR_HOST_URL }}
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: ${{ vars.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Get short commit hash
+      id: vars
+      run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
     - name: Build Docker image
-      run: docker build -t your-dockerhub-username/your-image-name:latest .
+      run: docker build -t ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ env.COMMIT_HASH }} .
 
     - name: Push Docker image
-      run: docker push your-dockerhub-username/your-image-name:latest
+      run: docker push ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ env.COMMIT_HASH }}

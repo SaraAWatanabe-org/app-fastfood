@@ -2,12 +2,14 @@ package com.challenge.fastfood;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class FastfoodApplicationTests {
 
-//	@Test
-//	void contextLoads() {
-//	}
+	@Test
+	void contextLoads() {
+            assertTrue(true);
+	}
 
 }
