@@ -92,18 +92,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Get short commit hash
-      id: vars
-      run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
     - name: Build Docker image
-      run: docker build -t ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ env.COMMIT_HASH }} .
+      run: docker build -t ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
 
-    - name: Tag Docker image as latest
-      run: docker tag ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ env.COMMIT_HASH }} ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
-
-    - name: Push Docker image with commit hash tag
-      run: docker push ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:${{ env.COMMIT_HASH }}
+    # - name: Tag Docker image as latest
+    #   run: docker tag ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
 
     - name: Push Docker image with latest tag
       run: docker push ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_IMAGE_NAME }}:latest
