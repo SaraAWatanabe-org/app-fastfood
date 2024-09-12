@@ -73,7 +73,7 @@ jobs:
 
     - name: Run SonarQube analysis
       run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-        -Dsonar.projectKey=${{ vars.ARTIFACT_ID }} 
+        -Dsonar.projectKey=${{ env.ARTIFACT_ID }} 
         -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} 
         -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} 
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
