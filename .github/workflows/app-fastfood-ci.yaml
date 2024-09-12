@@ -66,10 +66,10 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Set up Maven
-      uses: actions/setup-java@v4
-      with:
-        maven-version: '3.8.1'
+    # - name: Set up Maven
+    #   uses: actions/setup-java@v4
+    #   with:
+    #     maven-version: '3.8.1'
 
     - name: Run SonarQube analysis
       run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
