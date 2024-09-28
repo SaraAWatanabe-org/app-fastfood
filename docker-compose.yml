@@ -43,34 +43,34 @@ services:
       mysql:
         condition: service_healthy
 
-  web:
-    image: fastfood-app  # Certifique-se de que "fastfood" é o nome da imagem correta
-    container_name: fastfood-web
-    environment:
-      - MYSQL_URL=jdbc:mysql://mysql:3306/fastfood
-    ports:
-      - "8082:8081"
-    networks:
-      - webnet
-      - local-network
-    depends_on:
-      app:
-        condition: service_started
-
-  ngrok:
-    image: wernight/ngrok
-    container_name: fastfood-ngrok
-    command: ngrok http web:8081  # A sintaxe correta inclui "ngrok" antes de "http"
-    environment:
-      - NGROK_AUTHTOKEN=2mXUXDvPrS7kqhqHtCNw6NRCcXB_BsD3rvuGCPkce3JJ7Mji  # Seu token de autenticação do ngrok
-    ports:
-      - "4040:4040"  # Expondo o dashboard do ngrok localmente
-    networks:
-      - webnet
+#  web:
+#    image: fastfood-app  # Certifique-se de que "fastfood" é o nome da imagem correta
+#    container_name: fastfood-web
+#    environment:
+#      - MYSQL_URL=jdbc:mysql://mysql:3306/fastfood
+#    ports:
+#      - "8082:8081"
+#    networks:
+#      - webnet
+#      - local-network
+#    depends_on:
+#      app:
+#        condition: service_started
+#
+#  ngrok:
+#    image: wernight/ngrok
+#    container_name: fastfood-ngrok
+#    command: ngrok http web:8081  # A sintaxe correta inclui "ngrok" antes de "http"
+#    environment:
+#      - NGROK_AUTHTOKEN=2mXUXDvPrS7kqhqHtCNw6NRCcXB_BsD3rvuGCPkce3JJ7Mji  # Seu token de autenticação do ngrok
+#    ports:
+#      - "4040:4040"  # Expondo o dashboard do ngrok localmente
+#    networks:
+#      - webnet
 
 networks:
   local-network:
     driver: bridge
 
-  webnet:
-    driver: bridge
+#  webnet:
+#    driver: bridge
