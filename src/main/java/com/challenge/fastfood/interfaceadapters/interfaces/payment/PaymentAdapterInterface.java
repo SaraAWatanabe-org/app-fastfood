@@ -1,0 +1,15 @@
+package com.challenge.fastfood.interfaceadapters.interfaces.payment;
+
+import com.challenge.fastfood.entities.Payment;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+public interface PaymentAdapterInterface {
+
+    Payment savePayment(Payment payment);
+    Payment findByNumberLunch(Long numberLunch);
+    Payment findPaymentByTransactionId(String transactionId);
+    Payment httpRequestPayment(Payment payment) throws JsonProcessingException;
+    String checkPaymentStatus(String transactionId) throws Exception;
+
+
+}
