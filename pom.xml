@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.challenge</groupId>
-	<artifactId>fastfood</artifactId>
+	<artifactId>fastfood-tech</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fastfood</name>
 	<description>Tech Challenge FastFood</description>
