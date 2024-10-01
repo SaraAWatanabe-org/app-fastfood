@@ -32,7 +32,7 @@ services:
     container_name: fastfood-app
     environment:
         - MYSQL_URL=jdbc:mysql://mysql:3306/fastfood
-        - MERCADO_PAGO_ACCESS_TOKEN=1386515375536994-092422-75093346ac522ea37de4fc30afbc0543-295369297
+        - MERCADO_PAGO_ACCESS_TOKEN=TEST-5672449502801622-062023-5bd15c6732c021a634f1192bfc995754-262195595
         - MERCADO_PAGO_DEFAULT_PAYER_EMAIL=jequeliasantana@gmail.com
         - TECHFOOD_API_URL=http://54.89.211.35
 
