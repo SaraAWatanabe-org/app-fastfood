@@ -3,9 +3,9 @@ package com.challenge.fastfood.usecases.payment;
 
 import com.challenge.fastfood.config.exception.PaymentException;
 import com.challenge.fastfood.entities.Lunch;
+import com.challenge.fastfood.entities.Payment;
 import com.challenge.fastfood.interfaceadapters.interfaces.lunch.FindLunchGatewayInterface;
 import com.challenge.fastfood.interfaceadapters.interfaces.payment.PaymentProcessGatewayInterface;
-import com.challenge.fastfood.entities.Payment;
 
 import java.io.IOException;
 import java.util.Objects;

@@ -25,4 +25,5 @@ public class FindClientUseCase {
         }
         return client;
     }
+
 }

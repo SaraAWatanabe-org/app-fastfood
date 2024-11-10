@@ -15,6 +15,4 @@ public record LunchRequest(
         List<Long> accompaniment,
         @Schema(description = "The ids lunchs dessert", example = "[]", nullable = true)
         List<Long> dessert
-) {
-
-}
+) {}

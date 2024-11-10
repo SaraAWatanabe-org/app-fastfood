@@ -1,12 +1,12 @@
 package com.challenge.fastfood.usecases.lunch;
 
-import com.challenge.fastfood.entities.LunchStatus;
-import com.challenge.fastfood.interfaceadapters.controller.request.LunchRequest;
 import com.challenge.fastfood.config.exception.ClientException;
 import com.challenge.fastfood.entities.Client;
+import com.challenge.fastfood.entities.Lunch;
+import com.challenge.fastfood.entities.LunchStatus;
+import com.challenge.fastfood.interfaceadapters.controller.request.LunchRequest;
 import com.challenge.fastfood.interfaceadapters.interfaces.client.FindClientGatewayInterface;
 import com.challenge.fastfood.interfaceadapters.interfaces.lunch.FindLunchGatewayInterface;
-import com.challenge.fastfood.entities.Lunch;
 
 import java.util.Comparator;
 import java.util.List;

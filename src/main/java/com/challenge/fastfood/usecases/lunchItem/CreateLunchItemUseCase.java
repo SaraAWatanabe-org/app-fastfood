@@ -1,9 +1,9 @@
 package com.challenge.fastfood.usecases.lunchItem;
 
-import com.challenge.fastfood.interfaceadapters.interfaces.lunchItem.FindLunchItemsGatewayInterface;
-import com.challenge.fastfood.interfaceadapters.interfaces.lunchItem.SaveLunchItemGatewayInterface;
 import com.challenge.fastfood.config.exception.LunchItemException;
 import com.challenge.fastfood.entities.LunchItem;
+import com.challenge.fastfood.interfaceadapters.interfaces.lunchItem.FindLunchItemsGatewayInterface;
+import com.challenge.fastfood.interfaceadapters.interfaces.lunchItem.SaveLunchItemGatewayInterface;
 
 public class CreateLunchItemUseCase {
 
